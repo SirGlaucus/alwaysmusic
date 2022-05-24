@@ -13,7 +13,9 @@ client.connect()
 
 //2. Crear una función asíncrona para registrar un nuevo estudiante en la base de datos.
 const nuevo = async (nombre, rut, curso, nivel) => {
+    await client.query('BEGIN TRANSACTION;')
     const res = await client.query(`INSERT INTO alumnos (nombre, rut, curso, nivel) VALUES ('${nombre}', '${rut}', '${curso}', ${nivel});`)
+    await client.query('COMMIT;')
     console.log(`Estudiante ${nombre} agregado con exito`)
     client.end()
 }
@@ -27,21 +29,27 @@ const consulta = async () => {
 
 // 5. Crear una función asíncrona para actualizar los datos de un estudiante en la base de datos.
 const editar = async (nombre, rut, curso, nivel) => {
+    await client.query('BEGIN TRANSACTION;')
     const res = await client.query(`UPDATE alumnos SET nombre = '${nombre}', curso = '${curso}', nivel = ${nivel} WHERE rut = '${rut}';`)
+    await client.query('COMMIT;')
     console.log(`Estudiante ${nombre} editado con exito`)
     client.end()
 }
 
 // 3. Crear una función asíncrona para obtener por consola el registro de un estudiante por medio de su rut.
 const rut = async (rut) => {
+    await client.query('BEGIN TRANSACTION;')
     const res = await client.query(`SELECT * FROM alumnos WHERE rut = '${rut}'`)
+    await client.query('COMMIT;')
     console.log(res.rows)
     client.end()
 }
 
 // 6. Crear una función asíncrona para eliminar el registro de un estudiante de la base de datos.
 const eliminar = async (rut) => {
+    await client.query('BEGIN TRANSACTION;')
     const res = await client.query(`DELETE FROM alumnos WHERE rut = '${rut}'`)
+    await client.query('COMMIT;')
     console.log(`Registro de estudiante con rut ${rut} eliminado`)
     client.end()
 }
