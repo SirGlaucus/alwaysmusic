@@ -8,8 +8,11 @@ const param2 = argumentos[4]
 const param3 = argumentos[5]
 const param4 = argumentos[6]
 
-if (argumentos[2] === 'consulta') {
-    consulta()
-} else if (argumentos[2] === 'crear') {
-    nuevo()
+switch (acccionSql) {
+    case 'consulta':
+        consulta()
+        break
+    case 'crear':
+        nuevo(param1, param2, param3, param4)
+
 }

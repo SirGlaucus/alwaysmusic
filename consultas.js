@@ -11,7 +11,7 @@ const config = {
 const client = new Client(config)
 client.connect()
 
-async function consulta() {
+const consulta = async () => {
     // Paso 2
     const res = await client.query("SELECT * FROM alumnos")
     // Paso 3
@@ -20,9 +20,9 @@ async function consulta() {
     client.end()
 }
 
-async function nuevo() {
-    const res = await client.query(`INSERT INTO alumnos (nombre, rut, curso, nivel) VALUES ('${param1}', '${param2}', '${param3}', ${param4});`)
-    console.log(`Estudiante ${param1} agregado con exito`)
+const nuevo = async (nombre, rut, curso, nivel) => {
+    const res = await client.query(`INSERT INTO alumnos (nombre, rut, curso, nivel) VALUES ('${nombre}', '${rut}', '${curso}', ${nivel});`)
+    console.log(`Estudiante ${nombre} agregado con exito`)
     client.end()
 }
 
