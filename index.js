@@ -1,6 +1,6 @@
 const argumentos = process.argv
 
-const {consulta, nuevo} = require('./consultas')
+const {consulta, nuevo, editar, rut} = require('./consultas')
 
 const acccionSql = argumentos[2] // NUEVO, obtener 1, obtener todos, eliminar, editar
 const param1 = argumentos[3] //
@@ -14,5 +14,14 @@ switch (acccionSql) {
         break
     case 'crear':
         nuevo(param1, param2, param3, param4)
-
+        break
+    case 'editar':
+        editar(param1, param2, param3, param4)
+        break
+    case 'rut':
+        rut(param1)
+        break
+    default:
+        console.log('Error: funcion no especificada o mal escrita.')
+        break
 }

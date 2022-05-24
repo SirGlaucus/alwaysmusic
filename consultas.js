@@ -11,22 +11,33 @@ const config = {
 const client = new Client(config)
 client.connect()
 
-const consulta = async () => {
-    // Paso 2
-    const res = await client.query("SELECT * FROM alumnos")
-    // Paso 3
-    console.log('Registros: ', res.rows)
-    // Paso 4
-    client.end()
-}
-
 const nuevo = async (nombre, rut, curso, nivel) => {
     const res = await client.query(`INSERT INTO alumnos (nombre, rut, curso, nivel) VALUES ('${nombre}', '${rut}', '${curso}', ${nivel});`)
     console.log(`Estudiante ${nombre} agregado con exito`)
     client.end()
 }
 
+const consulta = async () => {
+    const res = await client.query("SELECT * FROM alumnos")
+    console.log('Registro actual: ', res.rows)
+    client.end()
+}
+
+const editar = async (nombre, rut, curso, nivel) => {
+    const res = await client.query(`UPDATE alumnos SET nombre = '${nombre}', curso = '${curso}', nivel = ${nivel} WHERE rut = '${rut}';`)
+    console.log(`Estudiante ${nombre} editado con exito`)
+    client.end()
+}
+
+const rut = async (rut) => {
+    const res = await client.query(`SELECT * FROM alumnos WHERE rut = '${rut}'`)
+    console.log(res.rows)
+    client.end()
+}
+
 module.exports = {
+    nuevo,
     consulta,
-    nuevo
+    editar,
+    rut
 }
